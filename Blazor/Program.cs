@@ -1,19 +1,15 @@
-
-using Blazor.Services;
-using Blazor.Services.IServices;
+using Blazor.Data;
 using Blazored.LocalStorage;
-using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration.GetValue<string>("BaseAPIUrl")) });
-builder.Services.AddBlazoredLocalStorage();
-builder.Services.AddAuthorizationCore();
-builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
-builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddBlazoredLocalStorage();
+builder.Services.AddSingleton<WeatherForecastService>();
 
 var app = builder.Build();
 

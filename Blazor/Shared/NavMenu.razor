@@ -1,47 +1,39 @@
-﻿<nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
-    <a class="navbar-brand mx-4" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse pr-2" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto"></ul>
-        <ul class="my-0 navbar-nav">
-            <AuthorizeView>
-                <Authorized>
-                    <li class="nav-item p-0">
-                        <NavLink class="nav-link" href="#">
-                            <span class="p-2">
-                                Hello, @context.User.Identity.Name!
-                            </span>
-                        </NavLink>
-                    </li>
-                    <li class="nav-item p-0">
-                        <NavLink class="nav-link" href="logout">
-                            <span class="p-2">
-                                Logout
-                            </span>
-                        </NavLink>
-                    </li>
-                </Authorized>
-                <NotAuthorized>
-                    <li class="nav-item p-0">
-                        <NavLink class="nav-link" href="registration">
-                            <span class="p-2">
-                                Register
-                            </span>
-                        </NavLink>
-                    </li>
-                    <li class="nav-item p-0">
-                        <NavLink class="nav-link" href="login">
-                            <span class="p-2">
-                                Login
-                            </span>
-                        </NavLink>
-                    </li>
-                </NotAuthorized>
-            </AuthorizeView>
-
-        </ul>
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">Blazor</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
     </div>
-</nav>
+</div>
+
+<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="counter">
+                <span class="oi oi-plus" aria-hidden="true"></span> Counter
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="fetchdata">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+            </NavLink>
+        </div>
+    </nav>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}
