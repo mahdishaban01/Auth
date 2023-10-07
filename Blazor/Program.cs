@@ -1,5 +1,9 @@
 using Blazor.Data;
+using Blazor.Providers;
 using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Components.Authorization;
+using System.IdentityModel.Tokens.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +14,11 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<ApiAuthenticationStateProvider>();
+builder.Services.AddScoped<AuthenticationStateProvider>(x=>
+x.GetRequiredService<ApiAuthenticationStateProvider>());
+builder.Services.AddScoped<JwtSecurityTokenHandler>();
 
 var app = builder.Build();
 
