@@ -1,0 +1,48 @@
+﻿@page "/login"
+
+@using Blazor.Auth;
+@using Common.DTOs;
+
+@inject IAuthenticationService AuthenticationService
+@inject NavigationManager NavigationManager 
+
+<h3 class="card-title">Login</h3>
+@if (!response)
+{
+    <ErrorMessage Message="Something went wrong with the login attempt" />
+}
+
+<div class="card-body">
+    <EditForm Model="Model" OnValidSubmit="HandleLogin">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <label for="UserName">UserName</label>
+            <InputText Id="UserName" class="form-control" @bind-Value="Model.UserName" />
+            <ValidationMessage For="@(() => Model.UserName)" />
+        </div>
+        <div class="form-group">
+            <label for="Password">Password</label>
+            <InputText Id="Password" type="Password" class="form-control" @bind-Value="Model.Password" />
+            <ValidationMessage For="@(() => Model.Password)" />
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Login</button>
+
+    </EditForm>
+</div>
+
+@code {
+    private AuthenticationDTO Model = new AuthenticationDTO();
+    private bool response = true;
+    private async Task HandleLogin()
+    {
+        response = await AuthenticationService.AuthenticateAsync(Model);
+
+        if (response)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+
+    }
+}
