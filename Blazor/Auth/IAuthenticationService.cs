@@ -3,6 +3,8 @@ using Blazored.LocalStorage;
 using Common.DTOs;
 using Microsoft.AspNetCore.Components.Authorization;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace Blazor.Auth
@@ -36,6 +38,10 @@ namespace Blazor.Auth
 			await _localStorage.SetItemAsync("accessToken", result.Token);
 
 			await ((ApiAuthenticationStateProvider)_authenticationStateProvider).LoggedIn();
+
+			_client.DefaultRequestHeaders.Authorization =
+					new AuthenticationHeaderValue("bearer", result.Token);
+
 			return true;
 		}
 

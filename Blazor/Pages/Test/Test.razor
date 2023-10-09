@@ -1,0 +1,18 @@
+﻿@page "/test"
+@using System.Net.Http.Headers;
+@using Blazored.LocalStorage;
+
+<h3>Test</h3>
+
+@inject HttpClient HttpClient
+@inject ILocalStorageService LocalStorage
+
+@code {
+	protected override async Task OnInitializedAsync()
+	{
+		HttpClient.DefaultRequestHeaders.Authorization = 
+		new AuthenticationHeaderValue("bearer", await LocalStorage.GetItemAsync<string>("accessToken"));
+		var response = await HttpClient.GetAsync("WeatherForecast");
+		var contentTemp = await response.Content.ReadAsStringAsync();
+	}
+}
