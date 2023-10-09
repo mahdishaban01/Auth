@@ -29,7 +29,7 @@ namespace Blazor.Auth
 		{
 			var content = JsonConvert.SerializeObject(authentication);
 			var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
-			var response = await _client.PostAsync("api/account/signin", bodyContent);
+			var response = await _client.PostAsync("account/signin", bodyContent);
 			var contentTemp = await response.Content.ReadAsStringAsync();
 			var result = JsonConvert.DeserializeObject<AuthenticationResponseDTO>(contentTemp);
 

@@ -7,35 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Pages\Users\Login.razor" />
-    <Content Remove="Shared\RedirectToLogin.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Blazored.LocalStorage" Version="4.4.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Shared\RedirectToLogin.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Pages\Users\Login.razor" />
-    <_ContentIncludedByDefault Remove="Shared\RedirectToLogin.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Pages\Users\Login.razor" />
-    <None Include="Shared\RedirectToLogin.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Users\Login.razor" />
   </ItemGroup>
 
 </Project>

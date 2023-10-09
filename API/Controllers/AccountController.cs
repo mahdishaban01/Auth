@@ -32,7 +32,7 @@ namespace API.Controllers
                 var user = _context.User.SingleOrDefault(x => x.UserName == authenticationDTO.UserName);
 
                 var signinCredentials = GetSigningCredentials();
-                var claims = await GetClaims(user);
+                var claims = GetClaims(user);
 
                 var tokenOptions = new JwtSecurityToken(
                         issuer: _aPISetting.ValidIssuer,
@@ -70,7 +70,7 @@ namespace API.Controllers
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
         }
 
-        private async Task<List<Claim>> GetClaims(User user)
+        private List<Claim> GetClaims(User user)
         {
             var claims = new List<Claim>
             {

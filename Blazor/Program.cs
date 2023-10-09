@@ -1,7 +1,7 @@
+using Blazor.Auth;
 using Blazor.Data;
 using Blazor.Providers;
 using Blazored.LocalStorage;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.IdentityModel.Tokens.Jwt;
 

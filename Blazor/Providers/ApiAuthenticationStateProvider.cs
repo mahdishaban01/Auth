@@ -1,5 +1,5 @@
-﻿using Blazored.LocalStorage;
-using Common.Entities;
+﻿using Blazor.Helper;
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -51,12 +51,10 @@ namespace Blazor.Providers
 			NotifyAuthenticationStateChanged(authState);
 		}
 
-		private async Task<List<Claim>> GetClaims()
+		private async Task<IEnumerable<Claim>> GetClaims()
 		{
 			var savedToken = await _localStorage.GetItemAsync<string>("accessToken");
-			var tokenContent = _jwtSecurityTokenHandler.ReadJwtToken(savedToken);
-			var claims = tokenContent.Claims.ToList();
-			claims.Add(new Claim(ClaimTypes.Name, tokenContent.Subject));
+			var claims = JwtParser.ParseClaimsFromJwt(savedToken);
 			return claims;
 		}
 	}
