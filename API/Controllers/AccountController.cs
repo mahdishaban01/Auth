@@ -1,6 +1,7 @@
 ﻿using API.Helper;
 using Common.DTOs;
 using Common.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -24,6 +25,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> SignIn([FromBody] AuthenticationDTO authenticationDTO)
         {
             var result = _context.User.Any(x => x.UserName == authenticationDTO.UserName && x.Password == authenticationDTO.Password);
